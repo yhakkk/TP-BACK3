@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+service TaskService {
+  rpc GetTask (TaskRequest) returns (TaskResponse);
+  rpc GetTaskStats (Empty) returns (TaskStatsResponse);
+}
+
+message TaskRequest {
+  string taskId = 1;
+}
+
+message TaskResponse {
+  string taskId = 1;
+  string title = 2;
+  string description = 3;
+  string createdAt = 4;
+}
+
+message TaskStatsResponse {
+  int32 totalTasks = 1;
+  string lastCreatedTask = 2;
+}
+
+message Empty {}
