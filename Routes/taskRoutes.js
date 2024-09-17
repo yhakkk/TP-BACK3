@@ -4,20 +4,21 @@ import client from '../client.js';
 const router = express.Router();
 
 router.post("/registrarTask", async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, status } = req.body;
 
   try {
     // Verifica que ambos campos estén presentes
-    if (!title || !description) {
+    if (!title || !description || !status) {
       return res
         .status(400)
-        .json({ message: "Título y descripción son requeridos" });
+        .json({ message: "Título, descripción y estado son requeridos" });
     }
 
     // Crea la nueva tarea
     const task = new Task({
       title,
       description,
+      status,
     });
 
     // Guarda la tarea en la base de datos

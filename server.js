@@ -30,6 +30,7 @@ async function getTask(call, callback) {
       taskId: task._id,
       title: task.title,
       description: task.description,
+      status: task.status,
       createdAt: task.createdAt.toISOString(),
     });
   } catch (error) {
@@ -42,9 +43,14 @@ async function getTaskStats(call, callback) {
   try {
     const totalTasks = await Task.countDocuments();
     const lastTask = await Task.findOne().sort({ createdAt: -1 });
-    
+    const completedTasks = await Task.countDocuments({ status: "completed" });
+    const pendingTasks = await Task.countDocuments({ status: "pending" });
+
+
     callback(null, {
       totalTasks,
+      completedTasks,
+      pendingTasks,
       lastCreatedTask: lastTask ? lastTask.title : "No tasks available",
     });
   } catch (error) {
