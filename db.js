@@ -7,7 +7,6 @@ const conectarBD = async () => {
   try {
     await mongoose.connect(process.env.BD_OTP, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
       serverSelectionTimeoutMS: 10000, // Aumenta el tiempo de espera de selección de servidor
     });
     console.log('Conexión exitosa a la base de datos');
